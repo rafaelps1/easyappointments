@@ -1,8 +1,8 @@
 <div id="footer">
     <div id="footer-content" class="col-12 col-sm-8">
         <img class="mr-1" src="<?= base_url('assets/img/logo-16x16.png') ?>" alt="Easy!Appointments Logo">
-        <a href="https://easyappointments.org">
-            Easy!Appointments
+        <a href="">
+            AppointmentsMast
         </a>
 
         v<?= config('version') ?>
@@ -12,20 +12,20 @@
 
         |
 
-        <img class="mx-1" src="<?= base_url('assets/img/alextselegidis-logo-16x16.png') ?>" alt="Alex Tselegidis Logo">
-        <a href="https://alextselegidis.com">
-            Alex Tselegidis
+        <!-- <img class="mx-1" src="<?= base_url('assets/img/alextselegidis-logo-16x16.png') ?>" alt=""> -->
+        <a href="">
+            partner.mast@gmail.com
         </a>
-        &copy; <?= date('Y') ?> - Software Development
+        &copy; <?= date('Y') ?> - Comercial
 
         |
 
-        <?= lang('licensed_under') ?>
+        <!-- <?= lang('licensed_under') ?>
         <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
             GPL-3.0
         </a>
 
-        |
+        | -->
 
         <span id="select-language" class="badge badge-secondary">
             <i class="fas fa-language mr-2"></i>
