@@ -56,6 +56,7 @@
  * @property Notifications $notifications
  * @property Synchronization $synchronization
  * @property Timezones $timezones
+ * @property Sms_aws $sms_aws
  */
 class EA_Controller extends CI_Controller {
     /**

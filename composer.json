@@ -48,7 +48,8 @@
         "codeigniter/framework": "dev-3.1.11-php8.0",
         "jsvrcek/ics": "^0.8",
         "monolog/monolog": "^1",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "aws/aws-sdk-php": "^3.188"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
