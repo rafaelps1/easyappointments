@@ -41,7 +41,7 @@
 <nav id="header" class="navbar navbar-expand-md navbar-dark">
     <div id="header-logo" class="navbar-brand">
         <img src="<?= base_url('assets/img/logo.png') ?>">
-        <h6>EASY!APPOINTMENTS</h6>
+        <h6>APPOINTMENTSMAST</h6>
         <small>Open Source Appointment Scheduler</small>
     </div>
 

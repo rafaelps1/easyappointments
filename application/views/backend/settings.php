@@ -474,8 +474,8 @@
                         <div class="form-group">
                             <label for="calendar-view"><?= lang('calendar') ?> *</label>
                             <select id="calendar-view" class="form-control required">
-                                <option value="default">Default</option>
-                                <option value="table">Table</option>
+                                <option value="default"><?= lang('default') ?></option>
+                                <option value="table"><?= lang('table') ?></option>
                             </select>
                         </div>
 
@@ -498,22 +498,21 @@
         <!-- ABOUT TAB -->
 
         <div class="tab-pane" id="about-app">
-            <h3>Easy!Appointments</h3>
-
+            <h3>Mast Appointments</h3>
             <p>
                 <?= lang('about_app_info') ?>
             </p>
 
-            <div class="current-version card card-body bg-light border-light mb-3">
+            <!-- <div class="current-version card card-body bg-light border-light mb-3">
                 <?= lang('current_version') ?>
                 <?= config('version') ?>
                 <?php if (config('release_label')): ?>
                     - <?= config('release_label') ?>
                 <?php endif ?>
-            </div>
+            </div> -->
 
-            <h3><?= lang('support') ?></h3>
-            <p>
+            <!-- <h3><?= lang('support') ?></h3> -->
+            <!-- <p>
                 <?= lang('about_app_support') ?>
 
                 <br><br>
@@ -537,14 +536,14 @@
                 <a href="https://twitter.com/easyappts">
                     Twitter
                 </a>
-            </p>
+            </p> -->
 
-            <h3><?= lang('license') ?></h3>
+            <!-- <h3><?= lang('license') ?></h3> -->
 
-            <p>
+            <!-- <p>
                 <?= lang('about_app_license') ?>
                 <a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a>
-            </p>
+            </p> -->
         </div>
 
     </div>
