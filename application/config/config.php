@@ -8,7 +8,7 @@
 | Declare some of the global config values of Easy!Appointments.
 |
 */
-$config['version'] = '1.4.2'; // This must be changed manually.
+$config['version'] = '1.4.3'; // This must be changed manually.
 $config['release_label'] = ''; // Leave empty for no title or add Alpha, Beta etc ...
 $config['debug'] = Config::DEBUG_MODE;
 
@@ -314,7 +314,7 @@ $config['cache_path'] = __DIR__ . '/../../storage/cache/';
 | new release.
 |
 */
-$config['cache_busting_token'] = 'ZV947';
+$config['cache_busting_token'] = '6398SW';
 
 /*
 |--------------------------------------------------------------------------
@@ -367,7 +367,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 $config['cookie_prefix'] = "";
 $config['cookie_domain'] = "";
 $config['cookie_path'] = "/";
-$config['cookie_secure'] = FALSE;
+$config['cookie_secure'] = strpos($config['base_url'], 'https') !== FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -456,6 +456,17 @@ $config['rewrite_short_tags'] = FALSE;
 |
 */
 $config['proxy_ips'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| Rate Limiting
+|--------------------------------------------------------------------------
+|
+| Toggle the rate limiting feature in your application. Using rate limiting 
+| will control the number of requests a client can sent to the app. 
+|
+*/
+$config['rate_limiting'] = TRUE;
 
 
 /* End of file config.php */

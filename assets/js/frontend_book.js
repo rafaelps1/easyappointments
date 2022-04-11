@@ -57,7 +57,7 @@ window.FrontendBook = window.FrontendBook || {};
         defaultEventHandlers = defaultEventHandlers || true;
         manageMode = manageMode || false;
 
-        if (GlobalVariables.displayCookieNotice) {
+        if (GlobalVariables.displayCookieNotice && window.cookieconsent) {
             cookieconsent.initialise({
                 palette: {
                     popup: {
@@ -232,8 +232,8 @@ window.FrontendBook = window.FrontendBook || {};
             });
 
             // Add the "Any Provider" entry.
-            if ($('#select-provider option').length >= 1 && GlobalVariables.displayAnyProvider === '1') {
-                $('#select-provider').append(new Option('- ' + EALang.any_provider + ' -', 'any-provider', true, true));
+            if ($('#select-provider option').length > 1 && GlobalVariables.displayAnyProvider === '1') {
+                $('#select-provider').prepend(new Option('- ' + EALang.any_provider + ' -', 'any-provider', true, true));
             }
 
             FrontendBookApi.getUnavailableDates($('#select-provider').val(), $(this).val(),

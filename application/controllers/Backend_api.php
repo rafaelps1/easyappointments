@@ -55,6 +55,10 @@ class Backend_api extends EA_Controller {
         {
             $this->privileges = $this->roles_model->get_privileges($this->session->userdata('role_slug'));
         }
+        else
+        {
+            show_error('Forbidden', 403);
+        }
     }
 
     /**
@@ -66,6 +70,11 @@ class Backend_api extends EA_Controller {
     {
         try
         {
+            if ($this->privileges[PRIV_APPOINTMENTS]['view'] == FALSE)
+            {
+                throw new Exception('You do not have the required privileges for this task.');
+            }
+            
             $start_date = $this->input->post('startDate') . ' 00:00:00';
             $end_date = $this->input->post('endDate') . ' 23:59:59';
 
@@ -133,6 +142,10 @@ class Backend_api extends EA_Controller {
                     }
                 }
             }
+
+            $response['appointments'] = array_values($response['appointments']);
+            
+            $response['unavailability_events'] = array_values($response['unavailability_events']);
 
             $this->output->set_output(json_encode($response));
         }
@@ -1514,52 +1527,6 @@ class Backend_api extends EA_Controller {
     }
 
     /**
-     * Change system language for current user.
-     *
-     * The language setting is stored in session data and retrieved every time the user visits any of the system pages.
-     */
-    public function ajax_change_language()
-    {
-        try
-        {
-            // Check if language exists in the available languages.
-            $found = FALSE;
-
-            foreach (config('available_languages') as $lang)
-            {
-                if ($lang == $this->input->post('language'))
-                {
-                    $found = TRUE;
-                    break;
-                }
-            }
-
-            if ( ! $found)
-            {
-                throw new Exception('Translations for the given language does not exist (' . $this->input->post('language') . ').');
-            }
-
-            $this->session->set_userdata('language', $this->input->post('language'));
-            $this->config->set_item('language', $this->input->post('language'));
-
-            $response = AJAX_SUCCESS;
-        }
-        catch (Exception $exception)
-        {
-            $this->output->set_status_header(500);
-
-            $response = [
-                'message' => $exception->getMessage(),
-                'trace' => config('debug') ? $exception->getTrace() : []
-            ];
-        }
-
-        $this->output
-            ->set_content_type('application/json')
-            ->set_output(json_encode($response));
-    }
-
-    /**
      * This method will return a list of the available google calendars.
      *
      * The user will need to select a specific calendar from this list to sync his appointments with. Google access must
@@ -1569,18 +1536,25 @@ class Backend_api extends EA_Controller {
     {
         try
         {
-            if ( ! $this->input->post('provider_id'))
+            $provider_id = $this->input->post('provider_id');
+            
+            if ( ! $provider_id)
             {
                 throw new Exception('Provider id is required in order to fetch the google calendars.');
             }
 
+            if ($this->privileges[PRIV_USERS]['view'] == FALSE && $provider_id !== $this->session->userdata('user_id'))
+            {
+                throw new Exception('You do not have the required privileges for this task.');
+            }
+
             // Check if selected provider has sync enabled.
-            $google_sync = $this->providers_model->get_setting('google_sync', $this->input->post('provider_id'));
+            $google_sync = $this->providers_model->get_setting('google_sync', $provider_id);
 
             if ($google_sync)
             {
                 $google_token = json_decode($this->providers_model->get_setting('google_token',
-                    $this->input->post('provider_id')));
+                    $provider_id));
                 $this->google_sync->refresh_token($google_token->refresh_token);
 
                 $calendars = $this->google_sync->get_google_calendars();
