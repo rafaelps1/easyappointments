@@ -1,0 +1,41 @@
+version: "3.1"
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
+  redisdata:
+    driver: local
+
+#Servers
+services:
+    mysql:
+        image: mysql:5.7.34
+        container_name: easyappointments-database
+        volumes:
+            - dbdata:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=easyappointments
+        ports:
+            - "8001:3306"
+        networks:
+            - app-network
+    server:
+        build:
+            context: .
+            dockerfile: ./docker/server/Dockerfile
+        image: easyappointments-server:v1.1.1
+        container_name: easyappointments-server
+        ports:
+            - "8000:80"
+        volumes:
+            - ./:/var/www/html
+            - ./docker/server/php.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+        networks:
+            - app-network
