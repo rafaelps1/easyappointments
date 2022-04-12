@@ -7,6 +7,8 @@ networks:
 
 #Volumes
 volumes:
+  webdata:
+    driver: local
   dbdata:
     driver: local
   redisdata:
@@ -29,13 +31,13 @@ services:
     server:
         build:
             context: .
-            dockerfile: ./docker/server/Dockerfile
-        image: easyappointments-server:v1.1.1
+            dockerfile: ./docker/nginx/Dockerfile
+        image: easyappointments-server:v1.1.2
         container_name: easyappointments-server
         ports:
             - "8000:80"
         volumes:
-            - ./:/var/www/html
+            - webdata:/app
             - ./docker/server/php.ini:/usr/local/etc/php/conf.d/99-overrides.ini
         networks:
             - app-network
